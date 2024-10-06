@@ -2,6 +2,7 @@ import { app, shell, BrowserWindow, ipcMain } from 'electron'
 import { join } from 'path'
 import { electronApp, optimizer, is } from '@electron-toolkit/utils'
 import icon from '../../resources/icon.png?asset'
+import axios from 'axios'
 
 function createWindow(): void {
   // Create the browser window.
@@ -72,3 +73,18 @@ app.on('window-all-closed', () => {
 
 // In this file you can include the rest of your app"s specific main process
 // code. You can also put them in separate files and require them here.
+
+// Handle API requests via IPC
+ipcMain.handle('api-request', async (event, { url, method, data }) => {
+  try {
+    const response = await axios({
+      url,
+      method,
+      data
+    })
+    return response.data // Return the API response data to the renderer
+  } catch (error) {
+    console.error(`Error making API request: ${error.message}`)
+    return { error: error.message } // Return error message to the renderer
+  }
+})

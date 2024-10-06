@@ -1,11 +1,8 @@
-import axios, { AxiosResponse } from 'axios'
-
 declare global {
   interface Window {
-    electronAPI: {
-      getToken: () => Promise<string | undefined>
-      setToken: (token: string) => void
-      clearToken: () => void
+    api: {
+      // eslint-disable-next-line @typescript-eslint/no-explicit-any
+      apiRequest: (url: string, method: string, data?: any) => Promise<any>
     }
   }
 }
@@ -36,44 +33,44 @@ export interface UserResponse {
   phone: string
 }
 
-// Use the API base URL from environment variables
 const API_BASE_URL = import.meta.env.VITE_API_BASE_URL
 
-// Configure Axios instance
-const api = axios.create({
-  baseURL: API_BASE_URL
-})
-
-// Interceptor to add JWT token to the request headers if it exists
-api.interceptors.request.use((config) => {
-  const token = localStorage.getItem('token')
-  if (token && config.headers) {
-    config.headers.Authorization = `Bearer ${token}`
-  }
-  return config
-})
-
-// Register a new user
+// Function to register a user
 export const registerUser = async (userData: User): Promise<AuthResponse> => {
-  const response: AxiosResponse<AuthResponse> = await api.post('/register', userData)
-  localStorage.setItem('token', response.data.access_token)
-  return response.data
+  const response = await window.api.apiRequest(`${API_BASE_URL}/register`, 'POST', userData)
+  if (response.error) {
+    throw new Error(response.error)
+  }
+  localStorage.setItem('token', response.access_token) // Store JWT token
+  return response
 }
 
-// Log in an existing user
+// Function to log in a user
 export const loginUser = async (credentials: LoginCredentials): Promise<AuthResponse> => {
-  const response: AxiosResponse<AuthResponse> = await api.post('/login', credentials)
-  localStorage.setItem('token', response.data.access_token)
-  return response.data
+  const response = await window.api.apiRequest(`${API_BASE_URL}/login`, 'POST', credentials)
+  if (response.error) {
+    throw new Error(response.error)
+  }
+  localStorage.setItem('token', response.access_token) // Store JWT token
+  return response
 }
 
-// Log out the user by clearing the token
+// Function to log out the user
 export const logoutUser = (): void => {
-  localStorage.removeItem('token')
+  localStorage.removeItem('token') // Remove the JWT token from localStorage
 }
 
-// Fetch authenticated user data
+// Function to fetch user data (requires authentication)
 export const getUserData = async (): Promise<UserResponse> => {
-  const response: AxiosResponse<UserResponse> = await api.get('/user')
-  return response.data
+  const token = localStorage.getItem('token')
+  if (!token) {
+    throw new Error('No token found, user is not authenticated')
+  }
+
+  const headers = { Authorization: `Bearer ${token}` }
+  const response = await window.api.apiRequest(`${API_BASE_URL}/user`, 'GET', headers)
+  if (response.error) {
+    throw new Error(response.error)
+  }
+  return response
 }
