@@ -10,7 +10,7 @@ interface User {
   phone: string
 }
 
-const Dashboard: React.FC = () => {
+const User: React.FC = () => {
   const [user, setUser] = useState<User | null>(null)
   const navigate = useNavigate()
 
@@ -60,4 +60,4 @@ const Dashboard: React.FC = () => {
   )
 }
 
-export default Dashboard
+export default User

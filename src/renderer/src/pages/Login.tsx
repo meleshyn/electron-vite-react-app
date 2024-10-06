@@ -19,7 +19,7 @@ const Login: React.FC = () => {
     try {
       await loginUser(values)
       toast.success('Login successful!')
-      navigate('/dashboard') // Redirect to the dashboard after successful login
+      navigate('/user') // Redirect to the user (Dashboard) after successful login
     } catch (error) {
       toast.error('Login failed. Please check your credentials and try again.')
     }
