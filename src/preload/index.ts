@@ -3,9 +3,9 @@ import { electronAPI } from '@electron-toolkit/preload'
 
 // Custom APIs for renderer
 const api = {
-  // eslint-disable-next-line @typescript-eslint/no-explicit-any
-  apiRequest: (url: string, method: string = 'GET', data: any = null): Promise<any> => {
-    return ipcRenderer.invoke('api-request', { url, method, data })
+  // eslint-disable-next-line @typescript-eslint/explicit-function-return-type, @typescript-eslint/no-explicit-any
+  apiRequest: (url: string, method: string = 'GET', data: any = null, headers: any = {}) => {
+    return ipcRenderer.invoke('api-request', { url, method, data, headers })
   }
 }
 

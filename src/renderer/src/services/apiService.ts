@@ -2,7 +2,7 @@ declare global {
   interface Window {
     api: {
       // eslint-disable-next-line @typescript-eslint/no-explicit-any
-      apiRequest: (url: string, method: string, data?: any) => Promise<any>
+      apiRequest: (url: string, method: string, data?: any, headers?: any) => Promise<any>
     }
   }
 }
@@ -68,7 +68,7 @@ export const getUserData = async (): Promise<UserResponse> => {
   }
 
   const headers = { Authorization: `Bearer ${token}` }
-  const response = await window.api.apiRequest(`${API_BASE_URL}/user`, 'GET', headers)
+  const response = await window.api.apiRequest(`${API_BASE_URL}/user`, 'GET', null, headers)
   if (response.error) {
     throw new Error(response.error)
   }

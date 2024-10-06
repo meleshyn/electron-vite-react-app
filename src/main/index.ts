@@ -75,12 +75,13 @@ app.on('window-all-closed', () => {
 // code. You can also put them in separate files and require them here.
 
 // Handle API requests via IPC
-ipcMain.handle('api-request', async (event, { url, method, data }) => {
+ipcMain.handle('api-request', async (event, { url, method, data, headers }) => {
   try {
     const response = await axios({
       url,
       method,
-      data
+      data,
+      headers
     })
     return response.data // Return the API response data to the renderer
   } catch (error) {
