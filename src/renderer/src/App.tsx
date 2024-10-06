@@ -1,31 +1,19 @@
-import electronLogo from './assets/electron.svg'
+import React from 'react'
+import { Routes, Route } from 'react-router-dom'
+import { ToastContainer } from 'react-toastify'
+import 'react-toastify/dist/ReactToastify.css'
+import NavBar from './components/NavBar'
 
-function App(): JSX.Element {
-  const ipcHandle = (): void => window.electron.ipcRenderer.send('ping')
-
+const App: React.FC = () => {
   return (
     <>
-      <img alt="logo" className="logo" src={electronLogo} />
-      <div className="creator">Powered by electron-vite</div>
-      <div className="text">
-        Build an Electron app with <span className="react">React</span>
-        &nbsp;and <span className="ts">TypeScript</span>
+      <NavBar />
+      <div className="container mx-auto p-4">
+        <Routes>
+          <Route path="/" element={<h1 className="text-center mt-4">Welcome to the App</h1>} />
+        </Routes>
       </div>
-      <p className="tip">
-        Please try pressing <code>F12</code> to open the devTool
-      </p>
-      <div className="actions">
-        <div className="action">
-          <a href="https://electron-vite.org/" target="_blank" rel="noreferrer">
-            Documentation
-          </a>
-        </div>
-        <div className="action">
-          <a target="_blank" rel="noreferrer" onClick={ipcHandle}>
-            Send IPC
-          </a>
-        </div>
-      </div>
+      <ToastContainer />
     </>
   )
 }
