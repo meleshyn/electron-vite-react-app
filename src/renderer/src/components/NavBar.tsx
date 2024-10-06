@@ -15,7 +15,7 @@ const NavBar: React.FC = () => {
           Login
         </Link>
         <Link to="/user" className="hover:underline">
-          User Dashboard
+          User
         </Link>
       </div>
     </nav>
