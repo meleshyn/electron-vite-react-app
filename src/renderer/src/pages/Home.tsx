@@ -5,19 +5,6 @@ const Home: React.FC = () => {
   return (
     <div className="flex flex-col items-center justify-center p-8">
       <div className="bg-white shadow-lg rounded-lg p-8 max-w-xl text-center">
-        <h1 className="text-4xl font-bold mb-6 text-blue-600">Welcome to the App</h1>
-
-        <p className="text-lg text-gray-700 mb-6">
-          This is a simple Full Stack application where you can:
-        </p>
-
-        <ul className="text-left mb-8 list-disc list-inside text-gray-600">
-          <li>Register as a new user</li>
-          <li>Log in with your credentials</li>
-          <li>View your user information</li>
-          <li>Log out from the application</li>
-        </ul>
-
         <p className="text-gray-700 mb-6">
           Use the navigation links to get started. If you&apos;re new here, register an account, or
           if you&apos;re already registered, log in and access your dashboard.
