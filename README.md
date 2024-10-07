@@ -1,27 +1,27 @@
-## Full Stack Demo App (Electron + NestJS)
+## App Demonstration
 
-This is a full-stack demo application that demonstrates a front-end built with **Electron, React, and TypeScript**, and a back-end using **NestJS with JWT-based authentication and Sequelize for MySQL database**.
+https://github.com/user-attachments/assets/b8e4e5b3-1fa5-43c9-bb25-0c6870ef480d
 
 ## Getting Started
 
-### Step 1: Clone the Electron Front-End Repository
+### ⚠️ Back-End API Requirement
+
+This Electron app requires the back-end API for user authentication and data management. Make sure to start the back-end API as described in the [**nestjs-jwt-sequelize-app**](https://github.com/meleshyn/nestjs-jwt-sequelize-app?tab=readme-ov-file#api-demonstration) instructions.
+
+### Clone the Repository
 
 ```bash
 git clone https://github.com/meleshyn/electron-vite-react-app.git
 cd electron-vite-react-app
 ```
 
-### Step 2: Install Dependencies
+### Install Dependencies
 
 ```bash
 npm install
 ```
 
-### Step 3: Ensure the Back-End API is Running
-
-> ⚠️ This Electron application communicates with the back-end API, which handles user authentication and data management. Make sure you have the **back-end API** running by following the instructions in the [**nestjs-jwt-sequelize-app README**](https://github.com/meleshyn/nestjs-jwt-sequelize-app).
-
-### Step 4: Start the Electron Application
+### Starting the Application
 
 ```bash
 npm run dev
@@ -29,9 +29,12 @@ npm run dev
 
 ---
 
-## Features of the Demo Application
+## Features of the Application
 
-- **Register**: Create a new user account via the `/register` endpoint.
-- **Login**: Log in with your credentials via the `/login` endpoint, receiving a JWT token.
-- **User Dashboard**: After logging in, you can access the user dashboard, which fetches and displays your user data.
-- **JWT Authorization**: All authenticated requests require a valid JWT token, passed in the `Authorization` header.
+This Electron-based application provides essential functionality for managing user accounts, including:
+
+- **User Registration**: Allows new users to sign up and create an account.
+- **User Login**: Authenticates existing users to grant access to the app.
+- **User Dashboard**: Displays personalized user data and information after successful login.
+
+All actions are seamlessly integrated with the back-end API, which handles authentication, data storage, and management. For more detailed information, please refer to the [**API Documentation**](https://github.com/meleshyn/nestjs-jwt-sequelize-app?tab=readme-ov-file#api-documentation).
