@@ -19,7 +19,7 @@ const Register: React.FC = () => {
       .required('Password is required')
   })
 
-  const handleSubmit = async (values: typeof initialValues) => {
+  const handleSubmit = async (values: typeof initialValues): Promise<void> => {
     try {
       await registerUser(values)
       toast.success('Registration successful!')

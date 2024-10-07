@@ -16,7 +16,7 @@ const User: React.FC = () => {
 
   useEffect(() => {
     // Fetch the user data when the component is mounted
-    const fetchUserData = async () => {
+    const fetchUserData = async (): Promise<void> => {
       try {
         const userData = await getUserData()
         setUser(userData)
@@ -29,7 +29,7 @@ const User: React.FC = () => {
     fetchUserData()
   }, [navigate])
 
-  const handleLogout = () => {
+  const handleLogout = (): void => {
     logoutUser() // Clear the token from localStorage
     toast.success('Logged out successfully.')
     navigate('/login') // Redirect to login page

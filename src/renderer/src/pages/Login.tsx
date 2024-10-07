@@ -15,7 +15,7 @@ const Login: React.FC = () => {
     password: Yup.string().required('Password is required')
   })
 
-  const handleSubmit = async (values: typeof initialValues) => {
+  const handleSubmit = async (values: typeof initialValues): Promise<void> => {
     try {
       await loginUser(values)
       toast.success('Login successful!')
