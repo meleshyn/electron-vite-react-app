@@ -75,7 +75,7 @@ app.on('window-all-closed', () => {
 // code. You can also put them in separate files and require them here.
 
 // Handle API requests via IPC
-ipcMain.handle('api-request', async (event, { url, method, data, headers }) => {
+ipcMain.handle('api-request', async (_event, { url, method, data, headers }) => {
   try {
     const response = await axios({
       url,
@@ -83,9 +83,14 @@ ipcMain.handle('api-request', async (event, { url, method, data, headers }) => {
       data,
       headers
     })
-    return response.data // Return the API response data to the renderer
-  } catch (error) {
-    console.error(`Error making API request: ${error.message}`)
-    return { error: error.message } // Return error message to the renderer
+    return response.data
+  } catch (error: unknown) {
+    if (error instanceof Error) {
+      console.error(`Error making API request: ${error.message}`)
+      return { error: error.message }
+    } else {
+      console.error('An unexpected error occurred:', error)
+      return { error: 'An unexpected error occurred.' } // Generic error message
+    }
   }
 })
